@@ -1,4 +1,6 @@
-export const TableProject = ({ data }) => {
+import React from "react";
+
+export const Table = ({ data }) => {
   return (
     <table>
       <thead>
@@ -9,7 +11,7 @@ export const TableProject = ({ data }) => {
       </thead>
       <tbody>
         {data.map((item) => (
-          <tr key={item.project}>
+          <tr key={item.id}>
             <td>{item.project}</td>
             <td>{item.time}</td>
           </tr>
