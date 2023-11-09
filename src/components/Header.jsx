@@ -1,6 +1,6 @@
 import { Button, IconButton } from "@mui/material";
 import FolderIcon from "@mui/icons-material/Folder";
-import Timer from "./Timer.js";
+import Timer from "./Timer";
 
 export const Header = () => {
   return (

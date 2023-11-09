@@ -1,7 +1,7 @@
 import React from "react";
-import Dates from "./Timer-report.js";
-import Report from "./Report.js";
-import Client from "./Client.js";
+import Dates from "./Timer-report";
+import Report from "./Report";
+import Client from "./Client";
 
 function Sidebar() {
   return (
