@@ -6,7 +6,9 @@ export const Footer = () => {
       component={"footer"}
       sx={{ background: "white", padding: 1, marginTop: "auto" }}
     >
-      <Typography variant="body1">Copyright 2023</Typography>
+      <Typography variant="body1">
+        Copyright {new Date().getFullYear()}
+      </Typography>
     </Box>
   );
 };

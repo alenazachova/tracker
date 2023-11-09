@@ -43,7 +43,7 @@ const rows = [
   createData("Šťastnější", "10"),
 ];
 
-export default function CustomizedTables() {
+export default function DataTable() {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
