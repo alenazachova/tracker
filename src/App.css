@@ -35,3 +35,11 @@ div#root {
   display: flex;
   flex-direction: column;
 }
+.bg-gray {
+  background-color: gray;
+  color: #ffffff;
+}
+.bg-white {
+  background-color: white;
+  color: #000;
+}
