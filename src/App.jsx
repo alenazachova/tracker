@@ -6,19 +6,22 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { Footer } from "./components/Footer";
-import { Counter } from "./components/Counter";
+import { Counter } from "./components/Counter/Counter";
 import { StateTry } from "./components/StateTry";
-import { Input } from "./components/Input";
+import { Quotes } from "./components/Quotes";
+import { NewInput } from "./components/NewInput";
 
 function App() {
   return (
-    <>
-      <Input />
-      {/* <Counter /> */}
+    <div className="main--container">
+      {/* <Quotes /> */}
+      {/* <NewInput /> */}
+
+      <Counter />
       {/* <Header />
       <Main />
       <Footer /> */}
-    </>
+    </div>
   );
 }
 

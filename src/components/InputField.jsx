@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-export const Input = () => {
+export const InputField = () => {
   const [inputValue, setInputValue] = useState("");
   const [toDoList, setToDoList] = useState([]);
 
@@ -18,7 +18,7 @@ export const Input = () => {
 
       setInputValue("");
     } else {
-      alert("Nelze přidat prázdné TO DO");
+      alert("Přidejte text do pole.");
     }
   };
 
@@ -35,7 +35,7 @@ export const Input = () => {
   return (
     <>
       <input type="text" onChange={handleChange} value={inputValue} />
-      <button onClick={handleAdd}>Přidat</button>
+      <button onClick={handleAdd}>Přidat popis</button>
       <ol>
         {toDoList.map((toDo, index) => {
           console.log(toDo);
