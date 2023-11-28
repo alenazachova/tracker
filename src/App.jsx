@@ -6,10 +6,7 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { Footer } from "./components/Footer";
-import { Counter } from "./components/Counter/Counter";
-import { StateTry } from "./components/StateTry";
-import { Quotes } from "./components/Quotes";
-import { NewInput } from "./components/NewInput";
+import { Timer } from "./components/Timer/Timer";
 
 function App() {
   return (
@@ -17,7 +14,7 @@ function App() {
       {/* <Quotes /> */}
       {/* <NewInput /> */}
 
-      <Counter />
+      <Timer />
       {/* <Header />
       <Main />
       <Footer /> */}

@@ -12,7 +12,7 @@ export const NewInput = () => {
       setNewValue("");
       setListValue(newList);
     } else {
-      alert("Vyplň to zkurvené pole!!! 😈😤");
+      alert("Vyplňťe pole");
     }
   };
 
@@ -33,17 +33,17 @@ export const NewInput = () => {
       <button onClick={handleAdd}>Přidat hodnotu</button>
       <ol>
         {listValue.map((value, index) => {
-          //zbytek cislo
+          //rest divison - number
           const rest = index % 2;
-          //vysledek podminky boolean - true
+          //result of condition boolean - true
           const isOdd = rest > 0;
 
-          //ternar - string je vysledek
+          //ternar operator - "string" is result
           const className = isOdd ? "bg-white" : "bg-gray";
 
           return (
             <>
-              {/* to vložim jako prop do clasy */}
+              {/* this I put like a prop into class  */}
               <li className={className}>{value}</li>
             </>
           );

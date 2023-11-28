@@ -1,13 +1,13 @@
-//pocitadlo
+//timer
 
 import { useState } from "react";
 
-//vypisu cislo co mam
-//tlacitko - > zvysim o jedno
+//I write the number i have
+//button - > higher + 1
 
 const defaultValue = 0;
 export const StateTry = () => {
-  //aktualni stav, setState (ten mi to nastavi), za useState je defaultni hodnota
+  //actual state, setState (setter),  useState is default
   const [state, setState] = useState(defaultValue);
 
   const handleClick = () => {

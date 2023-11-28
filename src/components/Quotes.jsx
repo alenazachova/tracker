@@ -7,7 +7,7 @@ export const Quotes = () => {
   const [listQuote, setListQuote] = useState([]);
 
   const handleAdd = () => {
-    //chci pole ne string
+    //spred = field instead of string
     const newListQuote = [...listQuote, quote];
 
     setListQuote(newListQuote);

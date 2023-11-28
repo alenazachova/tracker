@@ -1,9 +1,11 @@
 export const Duration = (props) => {
-  //milisekundy
+  //milisec
 
   const { timePassed } = props;
+  //old version
+  //const timePassed = props.timePassed;
 
-  //sekundy
+  //seconds
   const timePassedInSeconds = timePassed / 1000;
   const timePassedInSecondsRest = Math.floor(timePassedInSeconds % 60);
 

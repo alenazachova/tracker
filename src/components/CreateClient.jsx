@@ -1,9 +1,9 @@
 export const CreateProject = () => {
   return (
     <>
-      {/* pridani klienta */}
+      {/* add client */}
       <button>Add client</button>
-      {/* hledani */}
+      {/* searching */}
       <input></input>
     </>
   );
