@@ -1,23 +1,37 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 import "./App.css";
-import { Header } from "./components/Header";
-import Main from "./components/Main";
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
-import { Footer } from "./components/Footer";
-import { Timer } from "./components/Timer/Timer";
+
+import { useState } from "react";
+import { Login } from "./components/Auth/Login";
+import { Home } from "./components/Home/Home";
 
 function App() {
-  return (
-    <div className="main--container">
-      {/* <Quotes /> */}
-      {/* <NewInput /> */}
+  const [loggedIn, setLoggedIn] = useState(false);
 
-      <Timer />
-      {/* <Header />
-      <Main />
-      <Footer /> */}
+  const [email, setEmail] = useState("");
+
+  return (
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home
+                email={email}
+                loggedIn={loggedIn}
+                setLoggedIn={setLoggedIn}
+              />
+            }
+          />
+
+          <Route
+            path="/login"
+            element={<Login setLoggedIn={setLoggedIn} setEmail={setEmail} />}
+          />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
