@@ -1,5 +1,3 @@
-//textove pole, hodnota pole ve stavu, hodnota stavu vypisu pod polem
-
 import { useState } from "react";
 
 export const InputField = () => {
@@ -22,6 +20,7 @@ export const InputField = () => {
     }
   };
 
+  // spread the old list to new (doesnt change the old one), prop is index, splice delete last item on first index, and set new list
   const removeToDo = (index) => {
     const removeList = [...toDoList];
 
@@ -29,9 +28,7 @@ export const InputField = () => {
     setToDoList(removeList);
   };
 
-  //funkce, remove todo , ziska index, v prop bude mit index, z toho to do list pole bude mazat prvek na indexu, a bude nastavovat nove pole do toho stavu
-
-  //nechci ukladat do li input value pokud je v inputvalue prazdny string
+  //i don't want to save in li input value until is empty string in inputvalue
   return (
     <>
       <input type="text" onChange={handleChange} value={inputValue} />

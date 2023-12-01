@@ -1,11 +1,11 @@
 export const CreateProject = () => {
   return (
     <>
-      {/* hledani */}
+      {/* searching */}
       <input></input>
-      {/* vypis */}
+      {/* list */}
       <div></div>
-      {/* pridani projektu */}
+      {/* add project */}
       <button>Add project</button>
     </>
   );
