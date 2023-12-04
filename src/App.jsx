@@ -5,6 +5,7 @@ import "./App.css";
 import { useState } from "react";
 import { Login } from "./components/Auth/Login";
 import { Home } from "./components/Home/Home";
+import { ErrorPage } from "./components/Error/ErrorPage";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -30,6 +31,7 @@ function App() {
             path="/login"
             element={<Login setLoggedIn={setLoggedIn} setEmail={setEmail} />}
           />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
     </div>

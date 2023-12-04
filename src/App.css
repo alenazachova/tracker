@@ -44,6 +44,13 @@ div#root {
   color: #000;
 } */
 
+nav {
+  padding-left: 0.5em;
+}
+nav svg {
+  margin-right: 0.3em;
+  vertical-align: bottom;
+}
 .mainContainer {
   flex-direction: column;
 
@@ -61,7 +68,7 @@ div#root {
 
   flex-direction: column;
 
-  font-size: 64px;
+  font-size: 2em;
 
   font-weight: bolder;
 
