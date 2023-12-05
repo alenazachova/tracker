@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { Layout } from "../Layout/Layout";
 import { useEffect, useState } from "react";
 
 const greetings = [
@@ -15,7 +14,7 @@ export const Home = (props) => {
     setSelectGreetings(greetings[randomIndex]);
   }, []);
 
-  const { loggedIn, email } = props;
+  const { loggedIn } = props;
   const navigate = useNavigate();
   const onButtonClick = () => {
     if (loggedIn) {
@@ -25,23 +24,20 @@ export const Home = (props) => {
   };
   return (
     <>
-      <Layout>
-        <div className="mainContainer">
-          <div className={"titleContainer"}>
-            <div>{selectGreetings}</div>
-          </div>
-          <div>This is app for tracking time.</div>
-          <div className={"buttonContainer"}>
-            <input
-              className={"inputButton"}
-              type="button"
-              onClick={onButtonClick}
-              value={loggedIn ? "Log out" : "Log in"}
-            />
-            {loggedIn ? <div>Your email adress is {email} </div> : null}
-          </div>
+      <div className="mainContainer">
+        <div className={"titleContainer"}>
+          <div>{selectGreetings}</div>
         </div>
-      </Layout>
+        <div>This is app for tracking time.</div>
+        <div className={"buttonContainer"}>
+          <input
+            className={"inputButton"}
+            type="button"
+            onClick={onButtonClick}
+            value={loggedIn ? "Log out" : "Log in"}
+          />
+        </div>
+      </div>
     </>
   );
 };

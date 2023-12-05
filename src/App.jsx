@@ -6,35 +6,24 @@ import { useState } from "react";
 import { Login } from "./components/Auth/Login";
 import { Home } from "./components/Home/Home";
 import { ErrorPage } from "./components/Error/ErrorPage";
+import { Layout } from "./components/Layout/Layout";
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  const [email, setEmail] = useState("");
+  const [loggedIn] = useState(false);
 
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Home
-                email={email}
-                loggedIn={loggedIn}
-                setLoggedIn={setLoggedIn}
-              />
-            }
-          />
+    <Layout>
+      <div className="App">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home loggedIn={loggedIn} />} />
 
-          <Route
-            path="/login"
-            element={<Login setLoggedIn={setLoggedIn} setEmail={setEmail} />}
-          />
-          <Route path="*" element={<ErrorPage />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<ErrorPage />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </Layout>
   );
 }
 
