@@ -23,15 +23,16 @@ export const Timer = () => {
   const intervalRef = useRef(null);
 
   const handleStart = () => {
-    //chci aktulni cas, kdy zacla
-    setStartTime(Date.now());
+    //Time when it starts
+    const currentTime = Date.now();
+    setStartTime(currentTime);
 
-    setNowTime(Date.now());
-    //prop useRef je current
+    setNowTime(currentTime);
+    //prop useRef is current
     intervalRef.current = setInterval(() => {
       setNowTime(Date.now());
     }, 1000);
-    //1 sekunda
+    //1 second
   };
 
   const handleStop = () => {
@@ -40,10 +41,10 @@ export const Timer = () => {
 
     const finalTimePassed = nowTime - startTime;
 
-    //jak dloho ten casovy zaznam trva
+    //how long the time entry takes
     // const newListTime = [...listTime, finalTimePassed];
 
-    //casovy zaznam co jsem ukoncila a ukladam do sveho stavu - kdyz dam stop
+    //ended time entry, I save in to the state, when I push stop button
     const newFinalTimePassed = {
       id: startTime.toString(),
       startTime: startTime,
