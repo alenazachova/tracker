@@ -4,8 +4,12 @@ export const Logo = () => {
   return (
     <>
       <h2>
-        <TimeTrackerIcon />
-        TimeTracker
+        <span class="highlight-container">
+          <span class="highlight">
+            <TimeTrackerIcon />
+            TimeTracker
+          </span>
+        </span>
       </h2>
     </>
   );
