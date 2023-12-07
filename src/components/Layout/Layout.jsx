@@ -5,9 +5,6 @@ export const Layout = (props) => {
   const { children } = props;
   return (
     <>
-      <nav>
-        <Logo />
-      </nav>
       {children}
       <Footer />
     </>

@@ -4,3 +4,38 @@
   gap: 10px;
   justify-content: flex-end;
 }
+
+h2.non-visible {
+  display: none;
+}
+
+ol.bg-wheat {
+  background: #f0dbaf;
+  padding-block: 1em;
+  padding-right: 1em;
+}
+
+li {
+  padding: 0.5em;
+  background: white;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+li.mb {
+  margin-bottom: 1em;
+}
+
+.d-flex {
+  display: flex;
+}
+.ml-auto {
+  margin-left: auto;
+}
+
+.no-border {
+  border: none;
+  padding-top: 1em;
+}
+
+.space-between {
+  justify-content: space-between;
+}

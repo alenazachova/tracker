@@ -1,16 +1,21 @@
+import { Link } from "react-router-dom";
 import { TimeTrackerIcon } from "../icons/TimeTrackerIcon";
 
 export const Logo = () => {
   return (
     <>
-      <h2>
-        <span class="highlight-container">
-          <span class="highlight">
-            <TimeTrackerIcon />
-            TimeTracker
-          </span>
-        </span>
-      </h2>
+      <nav>
+        <h2>
+          <Link to="/">
+            <span className="highlight-container">
+              <span className="highlight">
+                <TimeTrackerIcon />
+                TimeTracker
+              </span>
+            </span>
+          </Link>
+        </h2>
+      </nav>
     </>
   );
 };
