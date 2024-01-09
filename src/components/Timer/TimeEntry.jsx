@@ -1,15 +1,18 @@
+import { useState } from "react";
 import { Duration } from "./Duration";
 import { format } from "date-fns";
 
 export const TimeEntry = (props) => {
   const { item, onClick, index, listLength } = props;
+  const [localDescription, setlocalDescription] = useState(item.description);
+
   const itemDuration = item.endTime - item.startTime;
-  const endTimeFormated = format(new Date(item.endTime), "HH:mm:ss");
-  const startTimeFormated = format(new Date(item.startTime), "HH:mm:ss");
-  const dateTimeFormated = format(new Date(item.startTime), "PP");
+  const endTimeFormatted = format(item.endTime, "HH:mm:ss");
+  const startTimeFormatted = format(item.startTime, "HH:mm:ss");
+  const dateTimeFormatted = format(item.startTime, "PP");
 
   const handleDescriptionChange = (event) => {
-    onDescriptionChange(item.id, event.target.value);
+    setlocalDescription(event.target.value);
   };
 
   const comparingNumber = listLength - 1;
@@ -22,18 +25,18 @@ export const TimeEntry = (props) => {
         <div className="d-flex">
           <div>
             <div className="d-flex space-between">
-              <strong>{dateTimeFormated}</strong>
+              <strong>{dateTimeFormatted}</strong>
               <Duration timePassed={itemDuration} />
             </div>
             <input
               className="no-border"
               type="text"
-              value={item.description}
+              value={localDescription}
               onChange={handleDescriptionChange}
               placeholder="Přidat popis"
             />
-            <span>{startTimeFormated}</span>
-            <span> - </span> <span>{endTimeFormated}</span>
+            <span>{startTimeFormatted}</span>
+            <span> - </span> <span>{endTimeFormatted}</span>
             <br />
           </div>
           <div className="ml-auto">

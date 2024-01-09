@@ -4,11 +4,14 @@ import { Duration } from "./Duration";
 import { InputField } from "../InputField";
 import { TimeEntry } from "./TimeEntry";
 import { getWeek } from "date-fns";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export const Timer = () => {
   //state, what I can set or write
   //getter a setter
   // setter set it
+
+  const navigate = useNavigate();
 
   //actual time
   const [nowTime, setNowTime] = useState(null);
@@ -17,7 +20,7 @@ export const Timer = () => {
 
   const [nameDay, setNameDay] = useState(null);
   const actualTimer = nowTime - startTime;
-
+  const [showPopUp, setShowPopUp] = useState(false);
   const [listTime, setListTime] = useState([]);
   console.log(listTime);
 
@@ -39,9 +42,10 @@ export const Timer = () => {
     }, 1000);
     //1 second
   };
+
   const getTotalDuration = () => {
     return listTime.reduce((total, item) => {
-      // Přidání kontroly pro platný endTime
+      // Adding a check for a valid endTime
       if (item.endTime) {
         return total + (item.endTime - item.startTime);
       }
@@ -55,7 +59,7 @@ export const Timer = () => {
       .then((data) => {
         setNameDay(data);
       })
-      .catch((error) => console.error("Chyba při načítání dat:", error));
+      .catch((error) => console.error("Error loading data:", error));
   }, []);
 
   const handleDescriptionChange = (id, newDescription) => {
@@ -71,6 +75,7 @@ export const Timer = () => {
   const handleStop = () => {
     clearInterval(intervalRef.current);
     console.log(startTime);
+    setShowPopUp(true);
 
     const finalTimePassed = nowTime - startTime;
 
@@ -98,6 +103,10 @@ export const Timer = () => {
     handleDeleteList.splice(index, 1);
     setListTime(handleDeleteList);
   };
+  const logOut = () => {
+    localStorage.removeItem("userToken");
+    navigate("/");
+  };
 
   return (
     <>
@@ -105,26 +114,64 @@ export const Timer = () => {
       <div className="rightTogether">
         <InputField />
         <Duration timePassed={actualTimer} />
+
         {/* falsy - startTime is null */}
         {startTime ? (
           <button onClick={handleStop}>Stop</button>
         ) : (
           <button onClick={handleStart}>Start</button>
         )}
+        <button onClick={logOut}>Log out</button>
       </div>
       <div>This week: W{weekDay}</div>
+      {showPopUp && (
+        <div className="popup">
+          <svg
+            width="50"
+            height="50"
+            fill="#3750eb"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 50 50"
+          >
+            <path d="M25 2C12.31 2 2 12.31 2 25s10.31 23 23 23 23-10.31 23-23S37.69 2 25 2zm0 2c11.61 0 21 9.39 21 21s-9.39 21-21 21S4 36.61 4 25 13.39 4 25 4zm9.988 10.988a1 1 0 0 0-.816.451L23.97 30.477 16.68 23.71a1 1 0 1 0-1.36 1.467l8.996 8.347 11.512-16.964a1 1 0 0 0-.84-1.573z" />
+          </svg>
+          <h3>Timer saved successfully</h3>
+          <button
+            className={"inputButton mb-1"}
+            onClick={() => setShowPopUp(false)}
+          >
+            OK
+          </button>
+          <div>
+            <small>
+              <a href="/create-invoice">Create an invoice?</a>
+            </small>
+          </div>
+        </div>
+      )}
       <div>
         {nameDay ? (
           <div>
-            <p>Name day: {nameDay.name}</p>
+            <p>
+              <span className="nameDay">Name day: {nameDay.name}</span>{" "}
+              {/* <span>Nearest birthday:</span> */}
+            </p>
           </div>
         ) : (
-          <p>Načítání dat...</p>
+          <p>Loading data...</p>
         )}
       </div>
-      <div>Total:{getTotalDuration()} </div>
+      <div></div>
+      <div>
+        Total: <Duration timePassed={getTotalDuration()} />
+      </div>
+      <button className="invoiceButton">
+        <a href="https://app.fakturoid.cz/alenazachova/dashboard">
+          Create an invoice
+        </a>
+      </button>
       <h2 className={listTime.length > 0 ? "" : "non-visible"}>
-        Seznam záznamů
+        List of records
       </h2>
       <ol className={listTime.length > 0 ? "bg-wheat" : ""}>
         {/* item is left time in the time interval */}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
 
 export const Login = (props) => {
   const [email, setEmail] = useState("");
@@ -37,14 +38,28 @@ export const Login = (props) => {
   };
 
   return (
-    <>
+    <div className="bgContainer">
       <div className={"mainContainer"}>
         <div className={"titleContainer"}>
           <div>Login</div>
         </div>
 
         <br />
+        <div className={"googleContainer"}>
+          <GoogleLogin
+            onSuccess={(credentialResponse) => {
+              navigate("/counter");
+              localStorage.setItem("userToken", credentialResponse.credential);
 
+              console.log(credentialResponse.credential);
+            }}
+            onError={() => {
+              console.log("Login Failed");
+            }}
+          />
+        </div>
+        <div className={"mb-1"}>OR</div>
+        {/* <button clas>Login with email</button> */}
         <div className={"inputContainer"}>
           <input
             value={email}
@@ -70,7 +85,7 @@ export const Login = (props) => {
 
         <br />
 
-        <div className={"inputContainer"}>
+        <div className={"buttonContainer"}>
           <input
             className={"inputButton"}
             type="button"
@@ -79,6 +94,6 @@ export const Login = (props) => {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 };

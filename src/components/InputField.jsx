@@ -31,8 +31,8 @@ export const InputField = () => {
   //i don't want to save in li input value until is empty string in inputvalue
   return (
     <>
-      <input type="text" onChange={handleChange} value={inputValue} />
-      <button onClick={handleAdd}>Přidat popis</button>
+      {/* <input type="text" onChange={handleChange} value={inputValue} />
+      <button onClick={handleAdd}>Přidat popis</button> */}
       <ol>
         {toDoList.map((toDo, index) => {
           console.log(toDo);

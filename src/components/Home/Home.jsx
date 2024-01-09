@@ -18,10 +18,12 @@ export const Home = (props) => {
   const navigate = useNavigate();
   const onButtonClick = () => {
     if (loggedIn) {
+      navigate("/counter");
     } else {
       navigate("/login");
     }
   };
+
   return (
     <>
       <div className="mainContainer">
@@ -29,13 +31,20 @@ export const Home = (props) => {
           <div>{selectGreetings}</div>
         </div>
         <div>This is app for tracking time.</div>
+        <div className="circle">
+          <strong>Total</strong>{" "}
+          <span>
+            <strong>11:34</strong>
+          </span>
+        </div>
         <div className={"buttonContainer"}>
-          <input
+          <button
             className={"inputButton"}
             type="button"
             onClick={onButtonClick}
-            value={loggedIn ? "Log out" : "Log in"}
-          />
+          >
+            {loggedIn ? "Enter" : "Log in"}
+          </button>
         </div>
       </div>
     </>

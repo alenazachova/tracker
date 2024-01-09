@@ -22,13 +22,13 @@ export const Duration = (props) => {
   //   const timePassedInWeeksRest = Math.floor(timePassedInWeeks);
 
   return (
-    <div>
+    <span>
       {/* <span>{("0" + timePassedInWeeksRest).slice(-2)}:</span>
       <span>{("0" + timePassedInDaysRest).slice(-2)}:</span> */}
 
       <span>{("0" + timePassedInHoursRest).slice(-2)}:</span>
       <span>{("0" + timePassedInMinutesRest).slice(-2)}:</span>
       <span>{("0" + timePassedInSecondsRest).slice(-2)}</span>
-    </div>
+    </span>
   );
 };
