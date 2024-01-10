@@ -3,29 +3,32 @@ import React, { useEffect, useRef, useState } from "react";
 import { Duration } from "./Duration";
 import { InputField } from "../InputField";
 import { TimeEntry } from "./TimeEntry";
-import { getWeek } from "date-fns";
 import { Navigate, useNavigate } from "react-router-dom";
+import { supabase } from "../../App";
+import { WeekInfo } from "./WeekInfo";
+import { NameDay } from "./NameDay";
+import { PopUp } from "./PopUp";
+import { Layout } from "../Layout/Layout";
+import { IconButton } from "@mui/material";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import StopIcon from "@mui/icons-material/Stop";
 
+const STEP = 5;
 export const Timer = () => {
   //state, what I can set or write
   //getter a setter
   // setter set it
 
   const navigate = useNavigate();
-
   //actual time
   const [nowTime, setNowTime] = useState(null);
   // start the timer
   const [startTime, setStartTime] = useState(null);
 
-  const [nameDay, setNameDay] = useState(null);
   const actualTimer = nowTime - startTime;
   const [showPopUp, setShowPopUp] = useState(false);
-  const [listTime, setListTime] = useState([]);
-  console.log(listTime);
-
-  const today = new Date();
-  const weekDay = getWeek(today);
+  const [timeEntries, setTimeEntries] = useState([]);
+  const [totalTimeEntries, setTotalTimeEntries] = useState();
 
   // reference of interal - constant
   const intervalRef = useRef(null);
@@ -44,37 +47,48 @@ export const Timer = () => {
   };
 
   const getTotalDuration = () => {
-    return listTime.reduce((total, item) => {
+    return timeEntries.reduce((total, item) => {
       // Adding a check for a valid endTime
-      if (item.endTime) {
-        return total + (item.endTime - item.startTime);
+      if (item.finished_at) {
+        return total + (item.finished_at - item.started_at);
       }
       return total;
     }, 0);
   };
+  async function loadMoreTimeEntries() {
+    const { data } = await supabase
+      .from("timeEntries")
+      .select()
+      .order("started_at", { ascending: false })
+      .range(timeEntries.length, timeEntries.length + STEP);
+    const newTimeEntries = [...timeEntries, ...data];
+    //setter set the data to my state
+    setTimeEntries(newTimeEntries);
+  }
 
   useEffect(() => {
-    fetch("https://svatkyapi.cz/api/day")
-      .then((response) => response.json())
-      .then((data) => {
-        setNameDay(data);
-      })
-      .catch((error) => console.error("Error loading data:", error));
+    getTimeEntries();
   }, []);
 
-  const handleDescriptionChange = (id, newDescription) => {
-    const updatedListTime = listTime.map((item) => {
-      if (item.id === id) {
-        return { ...item, description: newDescription };
-      }
-      return item;
-    });
-    setListTime(updatedListTime);
-  };
+  async function getTimeEntries() {
+    //waiting for time entries from database, select return the data
 
-  const handleStop = () => {
+    const { count } = await supabase
+      .from("timeEntries")
+      .select("*", { count: "exact", head: true });
+    setTotalTimeEntries(count);
+
+    const { data } = await supabase
+      .from("timeEntries")
+      .select()
+      .order("started_at", { ascending: false })
+      .limit(timeEntries.length || STEP);
+    //setter set the data to my state
+    setTimeEntries(data);
+  }
+
+  const handleStop = async () => {
     clearInterval(intervalRef.current);
-    console.log(startTime);
     setShowPopUp(true);
 
     const finalTimePassed = nowTime - startTime;
@@ -83,33 +97,36 @@ export const Timer = () => {
     // const newListTime = [...listTime, finalTimePassed];
 
     //ended time entry, I save in to the state, when I push stop button
+
     const newFinalTimePassed = {
-      id: startTime.toString(),
-      startTime: startTime,
-      endTime: nowTime,
+      //id: startTime.toString(),
+      started_at: startTime,
+      finished_at: nowTime,
       description: "",
+      duration_in_ms: finalTimePassed,
     };
+    const { data, error } = await supabase
+      .from("timeEntries")
+      .insert(newFinalTimePassed);
 
-    const timeSchedule = [...listTime, newFinalTimePassed];
-
-    setListTime(timeSchedule);
+    getTimeEntries();
+    // const timeSchedule = [...timeEntries, newFinalTimePassed];
 
     setNowTime(null);
     setStartTime(null);
   };
 
-  const handleDelete = (index) => {
-    const handleDeleteList = [...listTime];
-    handleDeleteList.splice(index, 1);
-    setListTime(handleDeleteList);
-  };
-  const logOut = () => {
-    localStorage.removeItem("userToken");
-    navigate("/");
+  const handleDelete = async (id) => {
+    const { error } = await supabase.from("timeEntries").delete().match({ id });
+    if (error) {
+      console.error("Error deleting entry:", error);
+    } else {
+      getTimeEntries();
+    }
   };
 
   return (
-    <>
+    <Layout isFullBlue={true}>
       {/* I want to know the Duration in the left */}
       <div className="rightTogether">
         <InputField />
@@ -117,82 +134,91 @@ export const Timer = () => {
 
         {/* falsy - startTime is null */}
         {startTime ? (
-          <button onClick={handleStop}>Stop</button>
+          <>
+            <IconButton
+              sx={{ border: "1px solid #c4d3fc" }}
+              onClick={handleStop}
+            >
+              <StopIcon
+                sx={{
+                  color: "#c4d3fc",
+                  borderRadius: "50%",
+                }}
+              />
+            </IconButton>
+          </>
         ) : (
-          <button onClick={handleStart}>Start</button>
-        )}
-        <button onClick={logOut}>Log out</button>
-      </div>
-      <div>This week: W{weekDay}</div>
-      {showPopUp && (
-        <div className="popup">
-          <svg
-            width="50"
-            height="50"
-            fill="#3750eb"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 50 50"
-          >
-            <path d="M25 2C12.31 2 2 12.31 2 25s10.31 23 23 23 23-10.31 23-23S37.69 2 25 2zm0 2c11.61 0 21 9.39 21 21s-9.39 21-21 21S4 36.61 4 25 13.39 4 25 4zm9.988 10.988a1 1 0 0 0-.816.451L23.97 30.477 16.68 23.71a1 1 0 1 0-1.36 1.467l8.996 8.347 11.512-16.964a1 1 0 0 0-.84-1.573z" />
-          </svg>
-          <h3>Timer saved successfully</h3>
-          <button
-            className={"inputButton mb-1"}
-            onClick={() => setShowPopUp(false)}
-          >
-            OK
-          </button>
-          <div>
-            <small>
-              <a href="/create-invoice">Create an invoice?</a>
-            </small>
-          </div>
-        </div>
-      )}
-      <div>
-        {nameDay ? (
-          <div>
-            <p>
-              <span className="nameDay">Name day: {nameDay.name}</span>{" "}
-              {/* <span>Nearest birthday:</span> */}
-            </p>
-          </div>
-        ) : (
-          <p>Loading data...</p>
+          <>
+            <IconButton
+              sx={{
+                background: "#c4d3fc",
+                border: "1px solid #c4d3fc",
+                ":hover": { background: "#fff", color: "#c4d3fc" },
+              }}
+              onClick={handleStart}
+            >
+              <PlayArrowIcon
+                sx={{
+                  color: "#3750eb",
+                  borderRadius: "50%",
+                }}
+              />
+            </IconButton>
+          </>
         )}
       </div>
-      <div></div>
-      <div>
-        Total: <Duration timePassed={getTotalDuration()} />
-      </div>
-      <button className="invoiceButton">
-        <a href="https://app.fakturoid.cz/alenazachova/dashboard">
-          Create an invoice
-        </a>
-      </button>
-      <h2 className={listTime.length > 0 ? "" : "non-visible"}>
-        List of records
-      </h2>
-      <ol className={listTime.length > 0 ? "bg-wheat" : ""}>
-        {/* item is left time in the time interval */}
-        {listTime.map((item, index) => {
-          const onClick = () => {
-            handleDelete(index);
-          };
 
-          //go throught the list with item.id
-          return (
-            <TimeEntry
-              key={item.id}
-              item={item}
-              index={index}
-              listLength={listTime.length}
-              onClick={onClick}
-              onDescriptionChange={handleDescriptionChange}
-            />
-          );
-        })}
-      </ol>
-    </>
+      {showPopUp && <PopUp onClose={() => setShowPopUp(false)} />}
+      <div className="boxesContainer">
+        <WeekInfo />
+
+        <NameDay />
+
+        <div>
+          Total time
+          <span className="biggerSize">
+            <Duration timePassed={getTotalDuration()} />
+          </span>
+        </div>
+      </div>
+
+      {/* <h2 className={timeEntries.length > 0 ? "" : "non-visible"}>
+        List of records
+      </h2> */}
+      <div className={timeEntries.length > 0 ? "bg-lightBlue" : ""}>
+        <ol>
+          {/* item is left time in the time interval */}
+          {timeEntries.map((item, index) => {
+            const onDelete = () => {
+              handleDelete(item.id);
+            };
+
+            //go throught the list with item.id
+            return (
+              <TimeEntry
+                key={item.id}
+                item={item}
+                index={index}
+                getTimeEntries={getTimeEntries}
+                listLength={timeEntries.length}
+                onDelete={onDelete}
+              />
+            );
+          })}
+        </ol>
+        {/* timeEntries - all loaded time entries in the app */}
+        {totalTimeEntries > timeEntries.length && (
+          <div className="buttonContainer">
+            <button
+              className={"inputButton"}
+              type="button"
+              onClick={loadMoreTimeEntries}
+            >
+              Load more
+            </button>
+          </div>
+        )}
+      </div>
+    </Layout>
   );
 };

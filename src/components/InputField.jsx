@@ -9,7 +9,6 @@ export const InputField = () => {
   };
 
   const handleAdd = () => {
-    console.log(inputValue);
     if (inputValue.length !== 0) {
       const newList = [...toDoList, inputValue];
       setToDoList(newList);
@@ -35,7 +34,6 @@ export const InputField = () => {
       <button onClick={handleAdd}>Přidat popis</button> */}
       <ol>
         {toDoList.map((toDo, index) => {
-          console.log(toDo);
           return (
             <li key={toDo}>
               {toDo}

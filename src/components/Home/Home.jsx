@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Layout } from "../Layout/Layout";
 
 const greetings = [
   "Welcome back, Ala!",
@@ -25,14 +26,14 @@ export const Home = (props) => {
   };
 
   return (
-    <>
+    <Layout>
       <div className="mainContainer">
         <div className={"titleContainer"}>
           <div>{selectGreetings}</div>
         </div>
-        <div>This is app for tracking time.</div>
+        <div>Let's start tracking your time!</div>
         <div className="circle">
-          <strong>Total</strong>{" "}
+          <strong>Total</strong>
           <span>
             <strong>11:34</strong>
           </span>
@@ -47,6 +48,6 @@ export const Home = (props) => {
           </button>
         </div>
       </div>
-    </>
+    </Layout>
   );
 };

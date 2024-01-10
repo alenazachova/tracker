@@ -3,22 +3,30 @@
   align-items: center;
   gap: 10px;
   justify-content: flex-end;
+  color: #fff;
 }
 
 h2.non-visible {
   display: none;
 }
 
-ol.bg-wheat {
-  background: #f0dbaf;
+div.bg-lightBlue {
+  background: #c4d3fc;
   padding-block: 1em;
-  padding-right: 1em;
+  border-radius: 4px;
+  height: 100vh;
+}
+ol {
+  padding-left: 2em;
+  padding-right:2em;
+
 }
 
-li {
+ol li {
   padding: 0.5em;
   background: white;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 4px;
 }
 li.mb {
   margin-bottom: 1em;

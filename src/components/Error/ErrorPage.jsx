@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
+import { Layout } from "../Layout/Layout";
 
 export const ErrorPage = () => {
   return (
-    <>
+    <Layout>
       <div className={"mainContainer"}>
         <h1 className="errorHeading">404</h1>
 
@@ -14,6 +15,6 @@ export const ErrorPage = () => {
           <Link to="/">GO HOME</Link>
         </button>
       </div>
-    </>
+    </Layout>
   );
 };

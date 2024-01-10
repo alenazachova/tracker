@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
+import { Layout } from "../Layout/Layout";
 
 export const Login = (props) => {
   const [email, setEmail] = useState("");
@@ -30,6 +31,9 @@ export const Login = (props) => {
     } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
       setEmailError("Please enter a valid email");
     }
+    if ("Karolinka39" === password && "ala.zachova@gmail.com" === email) {
+      navigate("/counter");
+    }
     if ("" === password) {
       setPasswordError("Please enter a password");
     } else if (password.length < 8) {
@@ -38,7 +42,7 @@ export const Login = (props) => {
   };
 
   return (
-    <div className="bgContainer">
+    <Layout>
       <div className={"mainContainer"}>
         <div className={"titleContainer"}>
           <div>Login</div>
@@ -50,20 +54,17 @@ export const Login = (props) => {
             onSuccess={(credentialResponse) => {
               navigate("/counter");
               localStorage.setItem("userToken", credentialResponse.credential);
-
-              console.log(credentialResponse.credential);
             }}
             onError={() => {
-              console.log("Login Failed");
+              alert("Login Failed");
             }}
           />
         </div>
         <div className={"mb-1"}>OR</div>
-        {/* <button clas>Login with email</button> */}
         <div className={"inputContainer"}>
           <input
             value={email}
-            placeholder="Enter your email here"
+            placeholder="Email"
             onChange={handleEmailChange}
             className={"inputBox"}
           />
@@ -76,7 +77,7 @@ export const Login = (props) => {
           <input
             value={password}
             type="password"
-            placeholder="Enter your password here"
+            placeholder="Password"
             onChange={handlePasswordChange}
             className={"inputBox"}
           />
@@ -86,14 +87,11 @@ export const Login = (props) => {
         <br />
 
         <div className={"buttonContainer"}>
-          <input
-            className={"inputButton"}
-            type="button"
-            onClick={onButtonClick}
-            value={"Log in"}
-          />
+          <button className={"inputButton"} onClick={onButtonClick}>
+            Log in
+          </button>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
