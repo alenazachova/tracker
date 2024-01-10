@@ -5,8 +5,6 @@ export const NewInput = () => {
   const [listValue, setListValue] = useState([]);
 
   const handleAdd = () => {
-    console.log(newValue);
-
     if (newValue !== "") {
       const newList = [...listValue, newValue];
       setNewValue("");
@@ -17,7 +15,6 @@ export const NewInput = () => {
   };
 
   const handleChange = (event) => {
-    console.log(event.target.value);
     const actualValue = event.target.value;
     setNewValue(actualValue);
   };

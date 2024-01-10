@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Layout } from "../Layout/Layout";
 
 const greetings = [
   "Welcome back, Ala!",
@@ -18,26 +19,35 @@ export const Home = (props) => {
   const navigate = useNavigate();
   const onButtonClick = () => {
     if (loggedIn) {
+      navigate("/counter");
     } else {
       navigate("/login");
     }
   };
+
   return (
-    <>
+    <Layout>
       <div className="mainContainer">
         <div className={"titleContainer"}>
           <div>{selectGreetings}</div>
         </div>
-        <div>This is app for tracking time.</div>
+        <div>Let's start tracking your time!</div>
+        <div className="circle">
+          <strong>Total</strong>
+          <span>
+            <strong>11:34</strong>
+          </span>
+        </div>
         <div className={"buttonContainer"}>
-          <input
+          <button
             className={"inputButton"}
             type="button"
             onClick={onButtonClick}
-            value={loggedIn ? "Log out" : "Log in"}
-          />
+          >
+            {loggedIn ? "Enter" : "Log in"}
+          </button>
         </div>
       </div>
-    </>
+    </Layout>
   );
 };

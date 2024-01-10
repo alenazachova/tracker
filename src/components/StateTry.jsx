@@ -18,9 +18,6 @@ export const StateTry = () => {
     const newState = state - 1;
     setState(newState);
   };
-
-  console.log(state);
-
   return (
     <>
       <p>{state}</p>

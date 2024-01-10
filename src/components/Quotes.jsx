@@ -19,15 +19,12 @@ export const Quotes = () => {
     setQuote(inputValue);
   };
 
-  console.log({ listQuote });
-
   return (
     <>
       <input type="text" onChange={handleChange} value={quote} />
       <button onClick={handleAdd}>Uložit citát</button>
       <ol>
         {listQuote.map((singleQuote) => {
-          console.log(singleQuote);
           return (
             <>
               <li>{singleQuote} </li>

@@ -3,4 +3,46 @@
   align-items: center;
   gap: 10px;
   justify-content: flex-end;
+  color: #fff;
+}
+
+h2.non-visible {
+  display: none;
+}
+
+div.bg-lightBlue {
+  background: #c4d3fc;
+  padding-block: 1em;
+  border-radius: 4px;
+}
+ol {
+  padding-left: 2em;
+  padding-right:2em;
+
+}
+
+ol li {
+  padding: 0.5em;
+  background: white;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 4px;
+}
+li.mb {
+  margin-bottom: 1em;
+}
+
+.d-flex {
+  display: flex;
+}
+.ml-auto {
+  margin-left: auto;
+}
+
+.no-border {
+  border: none;
+  padding-top: 1em;
+}
+
+.space-between {
+  justify-content: space-between;
 }
