@@ -189,6 +189,12 @@ footer {
   color: #ffffff;
   text-decoration: none;
 }
+.inputButton:hover {
+  cursor: pointer;
+  background: #c4d3fc;
+  color: #3750eb;
+  border: 1px solid #3750eb;
+}
 
 .boxesContainer {
   display: flex;
@@ -253,7 +259,12 @@ nav h2 {
   background-color: #3750eb;
   padding: 0 15px;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 ol {
   list-style-type: none;
+}
+.pl-1 {
+  padding-left: 15px;
 }

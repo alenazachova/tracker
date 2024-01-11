@@ -33,6 +33,7 @@ export const Login = (props) => {
     }
     if ("Karolinka39" === password && "ala.zachova@gmail.com" === email) {
       navigate("/counter");
+      localStorage.setItem("userToken", "ala.zachova@gmail.com");
     }
     if ("" === password) {
       setPasswordError("Please enter a password");

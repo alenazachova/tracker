@@ -12,6 +12,7 @@ import { Layout } from "../Layout/Layout";
 import { IconButton } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import StopIcon from "@mui/icons-material/Stop";
+import { StructuredTimeEntriesList } from "./StructuredTimeEntriesList";
 
 const STEP = 5;
 export const Timer = () => {
@@ -116,15 +117,6 @@ export const Timer = () => {
     setStartTime(null);
   };
 
-  const handleDelete = async (id) => {
-    const { error } = await supabase.from("timeEntries").delete().match({ id });
-    if (error) {
-      console.error("Error deleting entry:", error);
-    } else {
-      getTimeEntries();
-    }
-  };
-
   return (
     <Layout isFullBlue={true}>
       {/* I want to know the Duration in the left */}
@@ -150,6 +142,7 @@ export const Timer = () => {
         ) : (
           <>
             <IconButton
+              title="Start session"
               sx={{
                 background: "#c4d3fc",
                 border: "1px solid #c4d3fc",
@@ -186,8 +179,8 @@ export const Timer = () => {
         List of records
       </h2> */}
       <div className={timeEntries.length > 0 ? "bg-lightBlue" : ""}>
-        <ol>
-          {/* item is left time in the time interval */}
+        {/* <ol>
+          { item is left time in the time interval }
           {timeEntries.map((item, index) => {
             const onDelete = () => {
               handleDelete(item.id);
@@ -205,9 +198,9 @@ export const Timer = () => {
               />
             );
           })}
-        </ol>
+        </ol> */}
         {/* timeEntries - all loaded time entries in the app */}
-        {totalTimeEntries > timeEntries.length && (
+        {/* {totalTimeEntries > timeEntries.length && (
           <div className="buttonContainer">
             <button
               className={"inputButton"}
@@ -217,7 +210,14 @@ export const Timer = () => {
               Load more
             </button>
           </div>
-        )}
+        )} */}
+        <StructuredTimeEntriesList
+          timeEntries={timeEntries}
+          totalTimeEntries={totalTimeEntries}
+          timeEntriesLength={timeEntries.length}
+          loadMoreTimeEntries={loadMoreTimeEntries}
+          getTimeEntries={getTimeEntries}
+        />
       </div>
     </Layout>
   );
