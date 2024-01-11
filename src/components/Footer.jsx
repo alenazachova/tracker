@@ -6,6 +6,7 @@ export const Footer = () => {
       <Typography variant="body1">
         © {new Date().getFullYear()} TimeTracker. All rights reserved.
       </Typography>
+      <a href={"/video"}>video</a>
     </Box>
   );
 };
