@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 
 export const Footer = () => {
   return (
-    <Box component={"footer"} sx={{ padding: 1, marginTop: "auto" }}>
+    <Box
+      component={"footer"}
+      sx={{ padding: 1, marginTop: "auto", display: "flex" }}
+    >
       <Typography variant="body1">
         © {new Date().getFullYear()} TimeTracker. All rights reserved.
       </Typography>
