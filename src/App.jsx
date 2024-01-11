@@ -27,8 +27,8 @@ function App() {
           <Route path="/" element={<Home loggedIn={isLoggedIn} />} />
           <Route path="/login" element={<Login />} />
           <Route path="/counter" element={<Timer />} />
-          <Route path="*" element={<ErrorPage />} />
           <Route path="/video" element={<VideoPage />} />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
     </GoogleOAuthProvider>
