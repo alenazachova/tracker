@@ -15,7 +15,7 @@ import ReceiptIcon from "@mui/icons-material/Receipt";
 const clients = ["Jan Melvil Publishing", "ST.DIO", "Servantes"];
 
 export const TimeEntry = (props) => {
-  const { item, onDelete, index, listLength, getTimeEntries } = props;
+  const { item, index, listLength, getTimeEntries } = props;
   const [localDescription, setlocalDescription] = useState(
     item.description ?? ""
   );
@@ -48,6 +48,17 @@ export const TimeEntry = (props) => {
 
     getTimeEntries();
   };
+  const handleDelete = async () => {
+    const { error } = await supabase
+      .from("timeEntries")
+      .delete()
+      .match({ id: item.id });
+    if (error) {
+      console.error("Error deleting entry:", error);
+    } else {
+      getTimeEntries();
+    }
+  };
 
   const comparingNumber = listLength - 1;
   //rendering from the first one again, than second, and again  with third times - one, second, third
@@ -59,9 +70,10 @@ export const TimeEntry = (props) => {
         <Stack direction={"row"} alignItems={"center"}>
           <div>
             <div className="d-flex space-between">
-              <strong>{dateTimeFormatted}</strong>
               <Duration timePassed={item.duration_in_ms} />
             </div>
+            <strong>{startTimeFormatted}</strong>
+            <span> - </span> <strong>{endTimeFormatted}</strong>
             <input
               className="no-border"
               type="text"
@@ -70,8 +82,6 @@ export const TimeEntry = (props) => {
               onBlur={handleDescriptionBlur}
               placeholder="Přidat popis"
             />
-            <strong>{startTimeFormatted}</strong>
-            <span> - </span> <strong>{endTimeFormatted}</strong>
             <br />
           </div>
           <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
@@ -93,10 +103,14 @@ export const TimeEntry = (props) => {
             </Select>
           </FormControl>
           <div className="ml-auto">
-            <IconButton href={"https://fakturoid.cz"} target="_blank">
+            <IconButton
+              title="Create an invoice"
+              href={"https://fakturoid.cz"}
+              target="_blank"
+            >
               <ReceiptIcon sx={{ color: "#3750eb" }} />
             </IconButton>
-            <IconButton onClick={onDelete}>
+            <IconButton title="Delete item" onClick={handleDelete}>
               <DeleteIcon sx={{ color: "#3750eb" }} />
             </IconButton>
           </div>

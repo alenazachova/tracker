@@ -3,7 +3,7 @@ import { TimeTrackerIcon } from "../icons/TimeTrackerIcon";
 import { IconButton } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-export const Logo = (props) => {
+export const Logo = () => {
   const token = localStorage.getItem("userToken");
 
   const isLoggedIn = token ? true : false;
@@ -29,6 +29,7 @@ export const Logo = (props) => {
         </h2>
         {isLoggedIn && (
           <IconButton
+            title="Log out"
             sx={{
               paddingRight: "0",
               border: "1px solid #3750eb",

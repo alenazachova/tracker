@@ -8,6 +8,7 @@ import { ErrorPage } from "./components/Error/ErrorPage";
 import { Timer } from "./components/Timer/Timer";
 
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { VideoPage } from "./components/VideoPage";
 
 export const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
@@ -27,6 +28,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/counter" element={<Timer />} />
           <Route path="*" element={<ErrorPage />} />
+          <Route path="/video" element={<VideoPage />} />
         </Routes>
       </BrowserRouter>
     </GoogleOAuthProvider>
