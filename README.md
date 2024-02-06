@@ -1,2 +1,2 @@
 # Tracker
-<https://thriving-flan-6dbfed.netlify.app/>
+<https://alas-time-tracker.netlify.app/>
